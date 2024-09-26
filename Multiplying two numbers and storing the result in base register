@@ -1,0 +1,20 @@
+.model small        ; reserving memory in RAM
+.stack 100h         ; reserving memory for stack
+.data
+    num1 db 5
+    num2 db 10
+    result db 0
+.code
+main proc
+   mov al, num1    ; Loading number into register AL
+   mov bl, num2    ; Loading number into register BL
+    
+   mul bl          ; multiplying numbers
+   
+   mov result, al  ; storing result
+   
+    mov ah,4ch       ; release memory
+    int 21h          ; interrupt
+    main endp        ; end main procedure
+end main             ; end main code   
+
