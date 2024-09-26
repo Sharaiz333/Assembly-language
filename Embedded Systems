@@ -1,0 +1,30 @@
+;This code uses the ARM instruction set and demonstrates basic arithmetic operations such as addition, subtraction, multiplication, division, and remainder
+; Addition
+MOV R0, 5; Load 5 into register R0
+MOV R1, 3; Load 3 into register R1
+ADD R2, R0, R1; R2 = R0 + R1
+; R2 now contains the result of the addition (8)
+
+; Subtraction
+MOV R0, 10; Load 10 into register R0
+MOV R1, 4; Load 4 into register R1
+SUB R2, R0, R1; R2 = R0 - R1
+; R2 now contains the result of the subtraction (6)
+
+; Multiplication
+MOV R0, 7; Load 7 into register R0
+MOV R1, 2; Load 2 into register R1
+MUL R2, R0, R1; R2 = R0 * R1
+; R2 now contains the result of the multiplication (14)
+
+; Division
+MOV R0, 12; Load 12 into register R0
+MOV R1, 3; Load 3 into register R1
+DIV R2, R0, R1; R2 = R0 / R1
+; R2 now contains the result of the division (4)
+
+; Modulus (Remainder)
+MOV R0, 17; Load 17 into register R0
+MOV R1, 5; Load 5 into register R1
+MOD R2, R0, R1; R2 = R0 % R1
+; R2 now contains the result of the modulus operation (2)
