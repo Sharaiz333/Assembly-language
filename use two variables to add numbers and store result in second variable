@@ -1,0 +1,29 @@
+.model small
+.stack 100h
+.data
+var1 db 2
+var2 db 1
+;result db ?		; we can store result in this variable
+.code
+
+; mul bl   ; multiplication . . . . .  
+
+       main proc
+        ;access data section
+        mov ax, @data
+        mov ds, ax
+        
+        ;access first character of string
+        
+        mov dl, var1
+        
+        ;mov bl, var2		; we can use two registers or one register and one variable to add numbers 
+        add var2,dl		; add numbers and store result in var2. we can use memory addressing to store data such as add [var2], dl
+                      
+        
+        
+        mov ah,4ch
+        int 21h
+        main endp
+
+end main
