@@ -1,0 +1,31 @@
+.model small 
+
+.data
+arr db 1,2,3         ; declaration and initilazation of array
+
+
+.code
+main proc 
+    mov ax, @data
+    mov ds, ax
+    
+    mov si, offset arr   ; get address of first element of array ( e.g: 1)
+    mov dx, [si]         ; pass the value at address [si] to DX to print out
+    
+    mov ah,2
+    int 21h
+    
+    mov dx, [si +1]     ; move the second value which 2 to dx using address [si+1]
+    mov ah,2
+    int 21h 
+    
+    mov dx, [si+2]      ; move the third value which is 3 to dx to print
+    mov ah,2
+    int 21h
+      
+mov ah, 4ch
+int 21h    
+
+
+main endp
+end main
