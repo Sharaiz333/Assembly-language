@@ -40,4 +40,5 @@ int 21h
 exit:
 mov ax, 4C00h ; exit program
 int 21h
+main endp
 end main
