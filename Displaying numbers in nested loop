@@ -1,0 +1,35 @@
+.model small 
+.stack 100h 
+.data 
+.code 
+main proc
+mov dl,'1' ; move 1 into DL 
+mov bl, 0 ; move 0 into BL 
+
+outer: 
+mov bh, 4 ; move 4 into BH
+
+inner:
+mov ah,2 
+int 21h 
+inc dl ; increment DL 
+dec bh ; decrement BH 
+cmp bh, 0 ; compare BH with 0
+jne inner ; jump to inner loop if BH is not 0
+mov cl, dl ; move DL into CL
+mov dl, 10 ; move to newline
+mov ah,2 
+int 21h 
+mov dl,13 ; move to carriage return
+mov ah,2 
+int 21h 
+
+mov dl,cl ; restore original character in DL
+inc bl ; increment bl
+cmp bl,2 ; compare bl with 2 
+
+jne outer ; jump to outer loop if BL is not 2
+mov ah, 4Ch 
+int 21h 
+main endp
+end main 
