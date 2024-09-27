@@ -1,0 +1,48 @@
+.model small
+.stack 100h
+.data
+array db 'abcdefgh$' ; $ is used as the end marker
+    input db ?
+    found1 db 'Character is found$'
+    not_found1 db 'Character is not found$'
+
+code segment
+assume cs:code, ds:data
+
+start:
+    mov ax, data
+    mov ds, ax
+
+    ; Take input from the user
+    mov ah, 01h
+    int 21h
+    mov input, al
+
+    ; Search for the input character in the array
+    lea si, array
+    mov cx, 8 ; number of characters in the array
+
+search_loop:
+    mov al, input
+    cmp al, [si]
+    je found
+    inc si
+    loop search_loop
+
+not_found:
+    mov ah, 09h
+    lea dx, not_found1
+    int 21h
+    jmp end_prog
+
+found:
+    mov ah, 09h
+    lea dx, found1
+    int 21h
+
+end_prog:
+    mov ah, 4Ch
+    int 21h
+
+code ends
+end start
