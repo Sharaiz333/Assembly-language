@@ -1,0 +1,29 @@
+.model small
+.stack 100h
+.data
+.code
+main proc
+mov bl,0  ;counter for outer loop
+outer:
+mov dl,'1'
+mov bh, 3; counter for inner loop
+inner:
+mov ah,02h
+int 21h
+inc dl
+dec bh
+cmp bh, 0
+jne inner
+mov cl,dl
+;next line
+mov dl,10
+mov ah,02h
+int 21h
+mov dl,cl
+inc bl
+cmp bl,2
+jne outer  ;end of outer loop
+mov ah,4ch
+int 21h
+main endp
+end main
