@@ -5,11 +5,8 @@ array db 'abcdefgh$' ; $ is used as the end marker
     input db ?
     found1 db 'Character is found$'
     not_found1 db 'Character is not found$'
-
-code segment
-assume cs:code, ds:data
-
-start:
+.code
+main proc
     mov ax, data
     mov ds, ax
 
@@ -44,5 +41,5 @@ end_prog:
     mov ah, 4Ch
     int 21h
 
-code ends
-end start
+main endp
+end main
