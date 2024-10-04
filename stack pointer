@@ -1,0 +1,17 @@
+.model small
+.stack 100h
+.data
+.code
+main proc
+mov ax, 6
+mov bx, 7
+push ax ;0006 ;stores 00 at FF and 06 in FE
+axpush bx ; 0007
+mov bp, sp ;sp holds 00FV, pass this to BP
+;mov dx, [bp]; get value from 00FC, dx=7
+pop ax
+pop bx
+mov si,bp
+mov [si+2],0
+
+;you can use BX, SI, DI, BP registers
