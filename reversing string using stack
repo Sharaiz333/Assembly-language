@@ -1,0 +1,71 @@
+.MODEL SMALL
+.STACK 100H
+
+.DATA
+    originalString DB 'HELLO, WORLD!', '$'  ; The original string (terminated by '$')
+    reversedString DB 14 DUP ('$')           ; A buffer to hold the reversed string
+    msgOriginal DB 'Original String: $'
+    msgReversed DB 'Reversed String: $'
+
+.CODE
+START:
+    ; Initialize data segment
+    MOV AX, @DATA
+    MOV DS, AX
+    
+    ; Print the original string
+    LEA DX, msgOriginal
+    MOV AH, 09H          ; DOS interrupt to print string
+    INT 21H
+    
+    LEA DX, originalString
+    MOV AH, 09H          ; Print the original string
+    INT 21H
+
+    ; Reverse the string using the stack
+    LEA SI, originalString ; Load the address of the original string into SI
+    LEA DI, reversedString ; Load the address of the reversed string into DI
+
+    MOV CX, 0             ; Clear CX (character count)
+
+FindLength:
+    MOV AL, [SI + CX]     ; Load a character from the original string
+    CMP AL, '$'           ; Check if the end of the string is reached
+    JE Reverse            ; If end of string, start reversing
+    INC CX                ; Increase the character count
+    JMP FindLength        ; Continue counting characters
+
+Reverse:
+    DEC CX                ; CX now contains the length of the string - 1
+    MOV BX, CX            ; Save the length of the string in BX
+
+    ; Push each character onto the stack
+PushLoop:
+    MOV AL, [SI]          ; Load the current character
+    PUSH AX               ; Push the character onto the stack
+    INC SI                ; Move to the next character
+    DEC CX                ; Decrease the counter
+    JNZ PushLoop          ; Repeat until all characters are pushed
+
+    ; Pop each character from the stack to form the reversed string
+PopLoop:
+    POP AX                ; Pop a character from the stack
+    MOV [DI], AL          ; Store it in the reversed string buffer
+    INC DI                ; Move to the next position in the reversed string buffer
+    DEC BX                ; Decrease the length counter
+    JNZ PopLoop           ; Repeat until the stack is empty
+
+    ; Print the reversed string
+    LEA DX, msgReversed
+    MOV AH, 09H          ; DOS interrupt to print string
+    INT 21H
+
+    LEA DX, reversedString
+    MOV AH, 09H          ; Print the reversed string
+    INT 21H
+
+    ; Exit the program
+    MOV AH, 4CH
+    INT 21H
+
+END START
