@@ -1,6 +1,5 @@
 .MODEL SMALL
 .STACK 100H
-
 .DATA
     originalString DB 'HELLO, WORLD!', '$'  ; The original string (terminated by '$')
     reversedString DB 14 DUP ('$')           ; A buffer to hold the reversed string
