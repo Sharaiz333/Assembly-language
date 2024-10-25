@@ -1,0 +1,27 @@
+ .model small
+ .stack 100h
+ .data
+ var1 dw 1
+ var2 dw 2
+ var3 dw 3 
+ nextline db 0Dh, 0Ah, '$'
+ .code
+ addition macro var1, var2,var3
+    mov ax,var1
+    add ax,var2
+    add ax, var3
+    
+    
+    mov dx, ax
+    add dx,48
+    mov ah,2
+    int 21h
+ endm
+ 
+ main proc
+    mov ax, @data
+    mov ds,ax
+    addition var1, var2, var3
+    
+    main endp
+ end main
