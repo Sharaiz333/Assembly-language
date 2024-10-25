@@ -1,0 +1,32 @@
+ .model small
+ .stack 100h
+ .data
+ var1 db "Hello$"
+ var2 db "World$" 
+ nextline db 0Dh, 0Ah, '$'
+ .code
+ display macro var1, var2
+    lea dx, var1
+    mov ah, 9
+    int 21h
+    
+    mov dx, 13
+    mov ah,2
+    int 21h
+    
+    mov dx, 10
+    mov ah, 2
+    int 21h
+    
+    lea dx, var2
+    mov ah, 9
+    int 21h
+ endm
+ 
+ main proc
+    mov ax, @data
+    mov ds,ax
+    display var1, var2
+    
+    main endp
+ end main
