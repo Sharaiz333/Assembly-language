@@ -1,0 +1,52 @@
+INCLUDE Irvine32.inc
+
+.data
+msg byte "Enter a number between 0 and 9: ",0
+even byte "The given number is even",0
+odd byte "The given number is odd",0
+invalid byte "Invalid input! Please enter a number between 0 and 9.",0
+
+.code
+main proc
+    
+    mov edx, OFFSET msg  
+    call WriteString     ; Print the message
+
+    call ReadChar        ; Read a single character input
+
+    
+    cmp eax, 0
+    jl invalid_input      ; Jump to invalid if less than 0
+    cmp eax, 9
+    jg invalid_input      ; Jump to invalid if greater than 9
+
+    ; Determine if the number is even or odd
+    mov ebx, 2            ; Set divisor to 2
+
+
+    div ebx                ; Divide ax by 2
+  
+    je even_num           ; Jump to even_num if remainder is 0
+    jmp odd_num           ; Jump to odd_num if remainder is not 0
+
+even_num:
+   
+    mov edx, OFFSET even
+    call WriteString
+    jmp exit      
+
+odd_num:
+    
+    mov edx, OFFSET odd
+    call WriteString
+    jmp exit
+
+invalid_input:
+    
+    mov edx, OFFSET invalid
+    call WriteString
+    jmp exit
+
+
+    exit
+end main
