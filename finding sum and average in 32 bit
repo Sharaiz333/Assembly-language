@@ -1,0 +1,33 @@
+INCLUDE Irvine32.inc
+
+.data
+Num byte 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 
+count dword 10  
+sum dword 0     
+avg dword 0     
+
+.code
+main proc
+    
+    mov ecx, 10 ; Set up for loop
+    lea esi, Num  ; Load the address of Num 
+    mov al,0
+sum_loop:
+    add al, [esi]  ; Add the current element to AL
+    inc esi        ; Move to the next element in the array
+    loop sum_loop  
+
+    ; Store the sum in the 'sum' variable
+    mov sum, eax
+
+    mov eax, sum    
+    mov ebx, count  
+    div ebx         
+
+    ; Store the average in the 'avg' variable
+    mov avg, eax
+
+    call Writeint   ;
+
+    exit
+	endp
